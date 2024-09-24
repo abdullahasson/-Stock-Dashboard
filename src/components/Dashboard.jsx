@@ -1,6 +1,7 @@
-import Search from "./Search"
-import Card from "./Card"
+import Chart from "./Chart"
 import Header from "./Header"
+import Details from "./Details"
+import Overview from "./Overview"
 import { mockCompanyDetails } from "../constants/mock"
 
 
@@ -20,18 +21,19 @@ const Dashboard = () => {
         gap-6
         p-10
         font-quicksand
+        bg-neutral-100
     `}>
         <div className="col-span-1 md:col-span-2 xl:col-span-3 row-span-1 flex justify-start items-center">
             <Header name={mockCompanyDetails.name} />
         </div>  
         <div className="col-span-2 row-span-4">
-            <Card>Chart</Card>
+            <Chart />
         </div>
         <div>
-            <Card>Overview</Card>
+            <Overview symbol={mockCompanyDetails.ticker} price={300} change={30} changePercent={10.0} currency='USD' />
         </div>
         <div className="row-span-2 xl:row-span-3">
-            <Card>Details</Card>
+            <Details details={mockCompanyDetails} />
         </div>
 
     </div>
@@ -39,4 +41,4 @@ const Dashboard = () => {
 
 }
 
-export default Dashboard
+export default Dashboard 
