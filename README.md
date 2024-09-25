@@ -1,8 +1,9 @@
-# React + Vite
+# Stock Dashboard App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a stock dashboard app that uses the Finnhub API
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔍 Search for a stock (e.g. AAPL, FB, GOOG)
+- 💸 Quote a stock (current price, percent change)
+- 📝 Get more details of a stock (name, currency, market cap, etc.)
+- 📈 View historical chart data of a stock (day/week/month/year)
+- 🌙 Select theme (dark/light)
