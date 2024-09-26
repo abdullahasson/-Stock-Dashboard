@@ -2,6 +2,8 @@
 import { useState , useContext } from "react"
 // context
 import ThemeContext from "../context/ThemeContext"
+// api methods
+import { searchSymbols } from "../API/stock-api"
 import { mockSearchResults } from "../constants/mock"
 import SearchResult from "./SearchResult"
 // icon
@@ -11,10 +13,10 @@ const Search = () => {
 
 
     const { darkMode } = useContext(ThemeContext);
-
-
     const [input , setInput] = useState()
     const [bestMetches , setBestMetches] = useState(mockSearchResults.result)
+
+
 
     const clear = () => {
         setInput("")
@@ -40,6 +42,7 @@ const Search = () => {
                 placeholder="Search stock..."
                 onChange={(event) => {
                     setInput(event.target.value)
+                    updateBestMatches()
                 }}
                 onKeyPress={(event) => {
                     if (event.key === "Enter") {

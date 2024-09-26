@@ -1,7 +1,11 @@
 // react
-import { useState , useContext } from "react"
+import { useState , useContext, useEffect } from "react"
 // context
 import ThemeContext from "../context/ThemeContext";
+import StockContext from "../context/StockContext";
+// api 
+import { fetchHistoricalData } from "../API/stock-api";
+// charts
 import {
     Area,
     XAxis,
@@ -10,27 +14,68 @@ import {
     AreaChart,
     Tooltip,
   } from "recharts";
+//   mock
 import { mockHistoricalData } from "../constants/mock"
-import { convertUnixTimestampToDate } from "../helpers/date-helper"
-import {chartConfig} from "../constants/config"
+import { convertUnixTimestampToDate , createDate , convertDateToUnixTimestamp } from "../helpers/date-helper"
+import { chartConfig } from "../constants/config"
+// components
 import Card from "./Card"
 import ChartFilter from "./ChartFilter";
 
+
 const Chart = () => {
-
-    const { darkMode } = useContext(ThemeContext)
-
-    const [data , setData] = useState(mockHistoricalData)   
     const [filter , setFilter] = useState("1W")
 
+    const { darkMode } = useContext(ThemeContext)
+    const { stockSymbol } = useContext(StockContext)
+
+    const [data , setData] = useState(mockHistoricalData)   
+
     const formatData = () => {
-        return data.c.map((item , index) => {
-            return {
-                value: item.toFixed(2),
-                date: convertUnixTimestampToDate(data.t[index])
-            }
-        })
-    }
+        return data.o.map((item, index) => {
+          return {
+            value: item.toFixed(2),
+            date: convertUnixTimestampToDate(data.t[index]),
+          };
+        });
+      };
+
+    // useEffect(() => {
+    //     const getDateRange = () => {
+    //       const { days, weeks, months, years } = chartConfig[filter];
+    
+    //       const endDate = new Date();
+    //       const startDate = createDate(endDate, -days, -weeks, -months, -years);
+    
+    //       const startTimestampUnix = convertDateToUnixTimestamp(startDate);
+    //       const endTimestampUnix = convertDateToUnixTimestamp(endDate);
+    //       return { startTimestampUnix , endTimestampUnix };
+    //     };
+    
+    //     const updateChartData = async () => {
+    //       try {
+
+    //         const { startTimestampUnix, endTimestampUnix } = getDateRange();
+
+    //         const resolution = chartConfig[filter].resolution;
+
+    //         const result = await fetchHistoricalData(
+    //           stockSymbol,
+    //           resolution,
+    //           startTimestampUnix,
+    //           endTimestampUnix
+    //         );
+
+    //         setData(formatData(result));
+
+    //       } catch (error) {
+    //         setData([]);
+    //         console.log(error);
+    //       }
+    //     };
+    
+    //     updateChartData();
+    //   }, [stockSymbol , filter]);
 
     return (
         <Card>
